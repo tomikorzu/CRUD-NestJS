@@ -60,10 +60,15 @@ export class UsersRepository {
     });
   }
 
-  updateUser(
+  async updateUser(
     id: number,
     data: Prisma.UserUpdateInput,
   ): Promise<Prisma.UserUpdateInput> {
+    const user = await this.prisma.user.findUnique({
+      where: { id },
+    });
+
+    if (user === null) throw new NotFoundException('User not found');
     return this.prisma.user.update({
       where: { id },
       data,
