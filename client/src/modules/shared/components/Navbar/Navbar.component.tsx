@@ -1,34 +1,21 @@
 "use client";
 
 import {
+  Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
   SidebarGroupLabel,
-  SidebarHeader,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { Sidebar } from "lucide-react";
 import { navigationItems } from "./Items.utils";
 import Link from "next/link";
 
 export default function Navbar() {
   return (
     <Sidebar>
-      <SidebarHeader>
-        <SidebarGroup>
-          <SidebarGroupLabel>My App</SidebarGroupLabel>
-          <SidebarMenuItem>
-            <SidebarMenuButton asChild>
-              <Link href="/">
-                <Sidebar />
-                <span>Home</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarGroup>
-      </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Navigation</SidebarGroupLabel>

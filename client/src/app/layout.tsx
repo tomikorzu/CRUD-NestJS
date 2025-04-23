@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import ClientLayout from "./ClientLayout.layout";
+import AppProvider from "@/modules/shared/providers/AppProvider.provider";
 
 export const metadata: Metadata = {
   title: "Project Managment",
@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ClientLayout>{children}</ClientLayout>
+        <AppProvider>{children}</AppProvider>
       </body>
     </html>
   );
