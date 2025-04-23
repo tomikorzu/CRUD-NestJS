@@ -19,12 +19,19 @@ export default function Navbar() {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Navigation</SidebarGroupLabel>
-          <SidebarGroup>
+          <SidebarGroup className="gap-2">
             {navigationItems.map((item) => {
               const Icon = item.icon;
+              const isActive = item.url === window.location.pathname;
               return (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton
+                    className={`transition duration-300 ${
+                      isActive ? "" : "hover:brightness-50"
+                    }`}
+                    asChild
+                    isActive={isActive}
+                  >
                     <Link href={item.url}>
                       <Icon />
                       <span>{item.title}</span>
