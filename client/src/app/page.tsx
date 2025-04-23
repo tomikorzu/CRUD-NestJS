@@ -1,7 +1,10 @@
+import Dashboard from "@/modules/Dashboard/Dashboard.component";
+import InterfaceWrapper from "@/modules/shared/components/InterfaceWrapper/InterfaceWrapper.component";
+
 export default function Home() {
   return (
-    <main>
-      <div>Hello world!</div>
-    </main>
+    <InterfaceWrapper>
+      <Dashboard />
+    </InterfaceWrapper>
   );
 }
