@@ -1,34 +1,4 @@
-import {
-  FolderKanban,
-  Home,
-  Inbox,
-  LogOut,
-  Settings,
-  Users,
-} from "lucide-react";
-
-export const navigationItems = [
-  {
-    title: "Dashboard",
-    url: "/",
-    icon: Home,
-  },
-  {
-    title: "Projects",
-    url: "/projects",
-    icon: FolderKanban,
-  },
-  {
-    title: "Inbox",
-    url: "/inbox",
-    icon: Inbox,
-  },
-  {
-    title: "Team",
-    url: "/team",
-    icon: Users,
-  },
-];
+import { LogOut, Settings } from "lucide-react";
 
 export const actionItems = [
   {

@@ -470,7 +470,7 @@ function SidebarMenuItem({ className, ...props }: React.ComponentProps<"li">) {
     <li
       data-slot="sidebar-menu-item"
       data-sidebar="menu-item"
-      className={cn("group/menu-item relative p-1", className)}
+      className={cn("group/menu-item relative p-1 list-none", className)}
       {...props}
     />
   );
@@ -628,7 +628,7 @@ function SidebarMenuSkeleton({
         />
       )}
       <Skeleton
-        className="h-4 max-w-(--skeleton-width) flex-1"
+        className="h-4 max-w-(100%) flex-1"
         data-sidebar="menu-skeleton-text"
         style={
           {
