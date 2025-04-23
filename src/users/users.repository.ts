@@ -40,10 +40,16 @@ export class UsersRepository {
   async createUser(
     user: Prisma.UserCreateInput,
   ): Promise<Prisma.UserCreateInput> {
-    const existingUser = await this.prisma.user.findUnique({
+    const existingEmail = await this.prisma.user.findUnique({
       where: { email: user.email },
     });
-    if (existingUser) throw new BadRequestException('User already exists');
+    const existingUsername = await this.prisma.user.findFirst({
+      where: { username: user.username },
+    });
+    if (existingEmail) throw new BadRequestException('Email already exists');
+
+    if (existingUsername)
+      throw new BadRequestException('Username already exists');
 
     const passwordHashed = await bcrypt.hash(user.password, 10);
     return this.prisma.user.create({
