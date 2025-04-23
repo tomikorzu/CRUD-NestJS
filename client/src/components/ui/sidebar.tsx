@@ -387,7 +387,10 @@ function SidebarGroup({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="sidebar-group"
       data-sidebar="group"
-      className={cn("relative flex w-full min-w-0 flex-col p-2 list-none", className)}
+      className={cn(
+        "relative flex w-full min-w-0 flex-col justify-center p-2 list-none",
+        className
+      )}
       {...props}
     />
   );
@@ -467,7 +470,7 @@ function SidebarMenuItem({ className, ...props }: React.ComponentProps<"li">) {
     <li
       data-slot="sidebar-menu-item"
       data-sidebar="menu-item"
-      className={cn("group/menu-item relative", className)}
+      className={cn("group/menu-item relative p-1", className)}
       {...props}
     />
   );

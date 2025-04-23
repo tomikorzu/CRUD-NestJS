@@ -3,26 +3,26 @@
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupLabel,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { navigationItems } from "./Items.utils";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
+  const pathname = usePathname();
   return (
-    <Sidebar>
+    <Sidebar collapsible="icon">
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Navigation</SidebarGroupLabel>
           <SidebarGroup className="gap-2">
             {navigationItems.map((item) => {
               const Icon = item.icon;
-              const isActive = item.url === window.location.pathname;
+              const isActive = item.url === pathname;
               return (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton
@@ -44,7 +44,6 @@ export default function Navbar() {
         </SidebarGroup>
         <SidebarGroup />
       </SidebarContent>
-      <SidebarFooter />
     </Sidebar>
   );
 }
