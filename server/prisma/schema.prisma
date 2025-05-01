@@ -15,9 +15,26 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  username String @unique
-  email String @unique
-  password String
+  id                 String    @id @default(uuid())
+  name               String?
+  email              String    @unique
+  image              String?
+  role               String    @default("USER")
+  provider           String
+  providerAccountId  String
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  employees          Employee[] 
+
+  @@unique([provider, providerAccountId])
+}
+
+model Employee {
+  id        Int      @id @default(autoincrement())
+  name      String
+  position  String
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
 }
