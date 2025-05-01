@@ -8,7 +8,7 @@ import { FolderKanban, Home, Inbox, Users } from "lucide-react";
 interface NavigationItem {
   title: string;
   url: string;
-  icon: any;
+  icon: React.ElementType;
 }
 
 const navigationItems: NavigationItem[] = [
@@ -35,10 +35,10 @@ const navigationItems: NavigationItem[] = [
 ];
 
 export default function NavbarNavigation() {
+  const pathname = usePathname();
   return (
     <>
       {navigationItems.map((item) => {
-        const pathname = usePathname();
         const Icon = item.icon;
         const isActive = item.url === pathname;
         return (
