@@ -37,11 +37,11 @@ const handler = NextAuth({
 
       return true;
     },
-    async session({ session, token, user }) {
+    async session({ session, user }) {
       session.user = user;
       return session;
     },
-    async redirect({ url, baseUrl }) {
+    async redirect() {
       return "/dashboard";
     },
   },
