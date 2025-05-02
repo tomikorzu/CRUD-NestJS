@@ -16,16 +16,15 @@ datasource db {
 
 model User {
   id                 String    @id @default(uuid())
-  name               String?
+  name               String
   email              String    @unique
   image              String?
   role               String    @default("USER")
   provider           String
   providerAccountId  String
   createdAt          DateTime  @default(now())
-  updatedAt          DateTime  @updatedAt
 
-  employees          Employee[] 
+  employees          Employee[]
 
   @@unique([provider, providerAccountId])
 }
