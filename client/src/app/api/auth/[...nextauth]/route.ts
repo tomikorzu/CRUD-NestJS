@@ -23,19 +23,36 @@ const handler = NextAuth({
   },
   callbacks: {
     async signIn({ user, account }) {
-      await fetch(process.env.NEXT_PUBLIC_API_URL + "/auth/oauth", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: user.email,
-          name: user.name,
-          image: user.image,
-          provider: account?.provider,
-          providerAccountId: account?.providerAccountId,
-        }),
-      });
+      try {
+        const response = await fetch(
+          process.env.NEXT_PUBLIC_API_URL + "/auth/oauth",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              email: user.email,
+              name: user.name,
+              image: user.image,
+              provider: account?.provider,
+              providerAccountId: account?.providerAccountId,
+            }),
+          }
+        );
 
-      return true;
+        if (!response.ok) {
+          console.error(
+            "❌ Backend responded with error:",
+            response.status,
+            await response.text()
+          );
+          return false;
+        }
+
+        return true;
+      } catch (error) {
+        console.error("❌ Error in signIn callback:", error);
+        return false;
+      }
     },
     async session({ session, user }) {
       session.user = user;
