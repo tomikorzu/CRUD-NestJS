@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { signOut, useSession } from "next-auth/react";
+import Link from "next/link";
 
 export default function Dashboard() {
   const { data: session, status } = useSession();
@@ -10,7 +11,15 @@ export default function Dashboard() {
   return (
     <>
       <h1>Hello Dashboard</h1>
-      <Button variant="destructive" onClick={() => signOut()}>Logout</Button>
+      {status === "authenticated" ? (
+        <Button variant="destructive" onClick={() => signOut()}>
+          Logout
+        </Button>
+      ) : (
+        <Link href="/login">
+          <Button variant="default">Login</Button>
+        </Link>
+      )}
     </>
   );
 }

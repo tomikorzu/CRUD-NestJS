@@ -3,7 +3,7 @@ import "./globals.css";
 import AppProvider from "@/modules/shared/providers/AppProvider.provider";
 
 export const metadata: Metadata = {
-  title: "Project Managment",
+  title: "Home - Project Managment",
   description: "Create and manage your projects",
 };
 

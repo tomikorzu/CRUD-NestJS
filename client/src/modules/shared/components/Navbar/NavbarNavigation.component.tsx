@@ -14,22 +14,22 @@ interface NavigationItem {
 const navigationItems: NavigationItem[] = [
   {
     title: "Dashboard",
-    url: "/",
+    url: "/dashboard",
     icon: Home,
   },
   {
     title: "Projects",
-    url: "/projects",
+    url: "/dashboard/projects",
     icon: FolderKanban,
   },
   {
     title: "Inbox",
-    url: "/inbox",
+    url: "/dashboard/inbox",
     icon: Inbox,
   },
   {
     title: "Team",
-    url: "/team",
+    url: "/dashboard/team",
     icon: Users,
   },
 ];

@@ -1,14 +1,11 @@
-import { SidebarProvider } from "@/components/ui/sidebar";
-import { cookies } from "next/headers";
+"use client";
 
-export default async function SidebarProviderShadCN({
+import { SidebarProvider } from "@/components/ui/sidebar";
+
+export default function SidebarProviderShadCN({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const cookieStore = await cookies();
-  const defaultOpen = cookieStore.get("sidebar_state")?.value === "true";
-  return (
-    <SidebarProvider defaultOpen={defaultOpen}>{children}</SidebarProvider>
-  );
+  return <SidebarProvider defaultOpen={true}>{children}</SidebarProvider>;
 }

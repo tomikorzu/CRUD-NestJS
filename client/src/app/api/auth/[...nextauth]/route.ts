@@ -22,7 +22,7 @@ const handler = NextAuth({
     signIn: "/login",
   },
   callbacks: {
-    async signIn({ user, account, profile }) {
+    async signIn({ user, account }) {
       await fetch(process.env.NEXT_PUBLIC_API_URL + "/auth/oauth", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -40,6 +40,9 @@ const handler = NextAuth({
     async session({ session, token, user }) {
       session.user = user;
       return session;
+    },
+    async redirect({ url, baseUrl }) {
+      return "/dashboard";
     },
   },
 });

@@ -1,10 +1,5 @@
-import Dashboard from "@/modules/Dashboard/Dashboard.component";
-import InterfaceWrapper from "@/modules/shared/components/InterfaceWrapper/InterfaceWrapper.component";
+import Home from "@/modules/Home/Home.component";
 
-export default function Home() {
-  return (
-    <InterfaceWrapper>
-      <Dashboard />
-    </InterfaceWrapper>
-  );
+export default function Page() {
+  return <Home />;
 }
