@@ -1,85 +1,28 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'prisma/prisma.service';
-import { Prisma } from '@prisma/client';
-import * as bcrypt from 'bcryptjs';
+import { Prisma, User } from '@prisma/client';
 
 @Injectable()
-export class UsersRepository {
+export class UserRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async getAllUsers(): Promise<Prisma.UserCreateInput[] | []> {
-    const users = await this.prisma.user.findMany();
-
-    if (users.length === 0) {
-      throw new NotFoundException('No users found');
-    }
-    return users;
+  async createUser(user: Prisma.UserCreateInput): Promise<User> {
+    return this.prisma.user.create({ data: user });
   }
 
-  async getUserById(id: number): Promise<Prisma.UserCreateInput | null> {
-    const user = await this.prisma.user.findUnique({
-      where: { id },
-    });
-    if (user === null) throw new NotFoundException('User not found');
-    return this.prisma.user.findUnique({
-      where: { id },
-    });
-  }
-  async getUserByEmail(email: string): Promise<Prisma.UserCreateInput | null> {
-    const user = await this.prisma.user.findUnique({
-      where: { email },
-    });
-    if (user === null) throw new NotFoundException('User not found');
-    return user;
+  async getUsers(): Promise<User[]> {
+    return this.prisma.user.findMany();
   }
 
-  async createUser(
-    user: Prisma.UserCreateInput,
-  ): Promise<Prisma.UserCreateInput> {
-    const existingEmail = await this.prisma.user.findUnique({
-      where: { email: user.email },
-    });
-    const existingUsername = await this.prisma.user.findFirst({
-      where: { username: user.username },
-    });
-    if (existingEmail) throw new BadRequestException('Email already exists');
-
-    if (existingUsername)
-      throw new BadRequestException('Username already exists');
-
-    const passwordHashed = await bcrypt.hash(user.password, 10);
-    return this.prisma.user.create({
-      data: {
-        ...user,
-        password: passwordHashed,
-      },
-    });
+  async getUserByEmail(email: string): Promise<User | null> {
+    return this.prisma.user.findUnique({ where: { email } });
   }
 
-  async updateUser(
-    id: number,
-    data: Prisma.UserUpdateInput,
-  ): Promise<Prisma.UserUpdateInput> {
-    const user = await this.prisma.user.findUnique({
-      where: { id },
-    });
-
-    if (user === null) throw new NotFoundException('User not found');
-    return this.prisma.user.update({
-      where: { id },
-      data,
-    });
+  async getUserById(id: string): Promise<User | null> {
+    return this.prisma.user.findUnique({ where: { id } });
   }
 
-  async removeUser(id: number): Promise<Prisma.UserCreateInput | null> {
-    const user = await this.getUserById(id);
-    if (user === null) throw new NotFoundException('User not found');
-    return this.prisma.user.delete({
-      where: { id },
-    });
+  async deleteUser(id: string): Promise<User> {
+    return this.prisma.user.delete({ where: { id } });
   }
 }

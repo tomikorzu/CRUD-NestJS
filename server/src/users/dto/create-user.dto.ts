@@ -1,24 +1,24 @@
-import {
-  IsEmail,
-  IsNotEmpty,
-  IsString,
-  MaxLength,
-  MinLength,
-} from 'class-validator';
+// src/users/dto/user-response.dto.ts
+import { IsEmail, IsEnum, IsOptional, IsString } from 'class-validator';
+import { UserRole } from 'src/shared/types/users.types';
 
 export class CreateUserDto {
-  @IsString({ message: 'Username must be a string' })
-  @IsNotEmpty({ message: 'Username is required' })
-  @MinLength(4, { message: 'Username must be at least 4 characters' })
-  @MaxLength(20, { message: 'Username must be at most 20 characters' })
-  username: string;
+  @IsString()
+  id: string;
 
-  @IsEmail({}, { message: 'Invalid email format' })
-  @IsNotEmpty({ message: 'Email is required' })
+  @IsEmail()
   email: string;
 
-  @IsNotEmpty({ message: 'Password is required' })
-  @MaxLength(50, { message: 'Password must be at most 50 characters' })
-  @MinLength(6, { message: 'Password must be at least 6 characters' })
-  password: string;
+  @IsString()
+  name: string;
+
+  @IsOptional()
+  @IsString()
+  image?: string;
+
+  @IsEnum(UserRole)
+  role: UserRole;
+
+  @IsOptional()
+  position?: string;
 }

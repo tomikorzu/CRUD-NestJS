@@ -14,26 +14,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  USER
+  ADMIN
+}
+
 model User {
   id                 String    @id @default(uuid())
-  name               String
   email              String    @unique
+  name               String
   image              String?
-  role               String    @default("USER")
+  role               Role      @default(USER)
   provider           String
   providerAccountId  String
   createdAt          DateTime  @default(now())
 
-  employees          Employee[]
+  position           String?
 
   @@unique([provider, providerAccountId])
-}
-
-model Employee {
-  id        Int      @id @default(autoincrement())
-  name      String
-  position  String
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
 }
