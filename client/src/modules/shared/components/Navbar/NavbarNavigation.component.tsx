@@ -18,6 +18,11 @@ const navigationItems: NavigationItem[] = [
     icon: Home,
   },
   {
+    title: "Onboarding",
+    url: "/onboarding",
+    icon: Users,
+  },
+  {
     title: "Projects",
     url: "/dashboard/projects",
     icon: FolderKanban,

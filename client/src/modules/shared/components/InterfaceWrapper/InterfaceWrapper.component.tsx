@@ -6,7 +6,7 @@ export default function InterfaceWrapper({ children }: ChildrenProp) {
   return (
     <>
       <Navbar />
-      <main>
+      <main className="flex flex-col w-full">
         <SidebarTrigger />
         {children}
       </main>

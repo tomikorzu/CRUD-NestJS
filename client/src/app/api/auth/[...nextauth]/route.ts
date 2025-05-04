@@ -24,18 +24,21 @@ const handler = NextAuth({
   callbacks: {
     async signIn({ user, account }) {
       try {
+        const userData = {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          image: user.image,
+          provider: account?.provider,
+          providerAccountId: account?.providerAccountId,
+        };
+
         const response = await fetch(
           process.env.NEXT_PUBLIC_API_URL + "/users",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              email: user.email,
-              name: user.name,
-              image: user.image,
-              provider: account?.provider,
-              providerAccountId: account?.providerAccountId,
-            }),
+            body: JSON.stringify(userData),
           }
         );
 
@@ -54,9 +57,25 @@ const handler = NextAuth({
         return false;
       }
     },
-    async session({ session, user }) {
-      session.user = user;
+    async session({ session, token }) {
+      session.user = {
+        email: token.email,
+        name: token.name,
+        image: token.picture,
+        id: token.sub,
+      };
       return session;
+    },
+    async jwt({ token, account, profile, user }) {
+      if (account && profile) {
+        token.email = user.email;
+        token.name = user.name;
+        token.picture = user.image;
+        token.sub =
+          user.id || profile?.sub || profile?.id || account.providerAccountId;
+      }
+
+      return token;
     },
     async redirect() {
       return "/dashboard";

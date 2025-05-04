@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { UserRepository } from './users.repository';
 import { Prisma } from '@prisma/client';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -42,12 +46,38 @@ export class UsersService {
     };
   }
 
-  findAll() {
-    return this.userRepository.getUsers();
+  async findAll() {
+    const users = await this.userRepository.getUsers();
+    if (!users || users.length === 0)
+      throw new NotFoundException('Users not found');
+    const usersToReturn: CreateUserDto[] = users.map((user) => {
+      return {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        image: user.image || '',
+        role: user.role as UserRole,
+        position: user.position || '',
+      };
+    });
+    return usersToReturn;
   }
 
-  findOne(id: string) {
-    return this.userRepository.getUserById(id);
+  async findOne(id: string) {
+    const user = await this.userRepository.getUserById(id);
+
+    if (!user) throw new NotFoundException('User not found');
+
+    const userToReturn: CreateUserDto = {
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      image: user.image || '',
+      role: user.role as UserRole,
+      position: user.position || '',
+    };
+
+    return userToReturn;
   }
 
   remove(id: string) {
