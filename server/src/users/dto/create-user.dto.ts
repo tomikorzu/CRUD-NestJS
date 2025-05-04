@@ -21,4 +21,31 @@ export class CreateUserDto {
 
   @IsOptional()
   position?: string;
+
+  @IsOptional()
+  seniority?: string;
+
+  @IsOptional()
+  experienceYears?: number;
+
+  @IsOptional()
+  experienceMonths?: number;
+
+  @IsOptional()
+  experienceDays?: number;
+
+  @IsOptional()
+  phoneNumber?: string;
+
+  @IsOptional()
+  address?: string;
+
+  @IsOptional()
+  dni?: string;
+
+  @IsOptional()
+  startDate?: Date;
+
+  @IsOptional()
+  endDate?: Date;
 }

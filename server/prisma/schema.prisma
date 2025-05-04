@@ -19,17 +19,59 @@ enum Role {
   ADMIN
 }
 
+enum Status {
+  ACTIVE
+  PENDING
+  BLOCKED
+  INACTIVE
+  DELETED
+  FINISHED
+}
+
+model Technology {
+  id          String     @id @default(uuid())
+  name        String
+  createdAt   DateTime   @default(now())
+  users       User[]     @relation("UserTechnologies")
+  projects    Project[]  @relation("ProjectTechnologies")
+}
+
+model Project {
+  id             String       @id @default(uuid())
+  name           String
+  description    String?
+  image          String?
+  monthlyRevenue Float?
+  yearlyRevenue  Float?
+  client         String?
+  users          User[]
+  technologies   Technology[] @relation("ProjectTechnologies")
+  createdAt      DateTime     @default(now())
+  status         Status       @default(ACTIVE)
+}
+
 model User {
-  id                 String    @id @default(uuid())
-  email              String    @unique
+  id                 String       @id @default(uuid())
+  email              String       @unique
   name               String
   image              String?
-  role               Role      @default(USER)
+  description        String?
+  salary             Decimal?
+  role               Role         @default(USER)
   provider           String
   providerAccountId  String
-  createdAt          DateTime  @default(now())
-
+  createdAt          DateTime     @default(now())
+  status             Status       @default(ACTIVE)
+  projects           Project[]
+  technologies       Technology[] @relation("UserTechnologies")
   position           String?
+  seniority          String?
+  phoneNumber        String?
+  address            String?
+  dni                String?
+  startDate          DateTime?
+  endDate            DateTime?
 
   @@unique([provider, providerAccountId])
 }
+
