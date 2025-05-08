@@ -16,7 +16,6 @@ export class ProjectsController {
 
   @Get()
   findAll() {
-    console.log('findAll');
     return this.projectsService.findAll();
   }
 

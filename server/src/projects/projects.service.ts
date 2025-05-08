@@ -10,7 +10,9 @@ export class ProjectsService {
     return this.projectsRepository.findAll();
   }
 
-  async create(project: Prisma.ProjectCreateInput) {
+  async create(
+    project: Prisma.ProjectCreateInput,
+  ): Promise<Prisma.ProjectCreateInput> {
     if (!project.name) throw new Error('Project name is required');
     const res = await this.projectsRepository.create(project);
     if (!res) throw new Error('There was an error creating the project');

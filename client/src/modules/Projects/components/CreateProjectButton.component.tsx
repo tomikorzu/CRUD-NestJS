@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Asterisk, Info, Plus } from "lucide-react";
+import { Asterisk, Plus } from "lucide-react";
 
 export default function CreateProjectButton() {
   return (
@@ -32,7 +32,10 @@ export default function CreateProjectButton() {
             </DialogDescription>
           </DialogHeader>
           <div className="flex flex-col gap-3">
-            <Label htmlFor="name" className="text-right flex items-center gap-1">
+            <Label
+              htmlFor="name"
+              className="text-right flex items-center gap-1"
+            >
               <p>Name</p>
               <Asterisk className="size-4 opacity-60" />
             </Label>
@@ -40,7 +43,10 @@ export default function CreateProjectButton() {
             <Label htmlFor="description" className="text-right mt-2">
               Description
             </Label>
-            <Input id="description" value="Best place to build your next project" />
+            <Input
+              id="description"
+              value="Best place to build your next project"
+            />
           </div>
           <DialogFooter>
             <Button type="submit" disabled className="mt-2">
